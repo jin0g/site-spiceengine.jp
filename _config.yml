@@ -1,0 +1,28 @@
+# GitHub Pages configuration
+title: 株式会社スパイスエンジン
+description: 世界最速のAI基盤を創出する - AIハードウェアアクセラレータ開発
+baseurl: ""
+url: "https://spiceengine.github.io"
+
+# Build settings
+markdown: kramdown
+theme: minima
+
+# Exclude files from processing
+exclude:
+  - README.md
+  - claude-prompt.txt
+  - process_logo.py
+  - venv/
+  - .gitignore
+
+# Permalink settings
+permalink: pretty
+
+# Default values
+defaults:
+  -
+    scope:
+      path: ""
+    values:
+      layout: "default"
