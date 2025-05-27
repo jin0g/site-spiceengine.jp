@@ -1,0 +1,12 @@
+{
+  "name": "spiceengine-screenshot-tool",
+  "version": "1.0.0",
+  "description": "Puppeteer screenshot tool for spiceengine.jp",
+  "main": "screenshot.js",
+  "scripts": {
+    "screenshot": "node screenshot.js"
+  },
+  "dependencies": {
+    "puppeteer": "^21.11.0"
+  }
+}

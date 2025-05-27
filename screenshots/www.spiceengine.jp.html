@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ホーム - 株式会社スパイスエンジン</title>
+    <style>
+        :root {
+            --primary-color: #1A5D1A;
+            --secondary-color: #2E7D32;
+            --accent-color: #66BB6A;
+            --light-green: #A5D6A7;
+            --pale-green: #E8F5E8;
+            --text-color: #1B5E20;
+            --bg-color: #FFFFFF;
+            --light-bg: #F1F8E9;
+            --border-color: #C8E6C9;
+            --gradient-start: #2E7D32;
+            --gradient-end: #66BB6A;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans JP", sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+        }
+
+        /* Header Styles */
+        header {
+            background-color: var(--bg-color);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 5%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: var(--primary-color);
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .logo-icon {
+            width: 45px;
+            height: 45px;
+            margin-right: 12px;
+            background: linear-gradient(135deg, var(--accent-color), var(--secondary-color));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 1.1rem;
+            box-shadow: 0 4px 12px rgba(102, 187, 106, 0.3);
+        }
+
+        /* Navigation Menu */
+        .nav-menu {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-menu a:hover {
+            color: var(--accent-color);
+        }
+
+        /* Mobile Menu Toggle */
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .menu-toggle span {
+            width: 25px;
+            height: 3px;
+            background-color: var(--primary-color);
+            margin: 3px 0;
+            transition: 0.3s;
+        }
+
+        /* Main Content */
+        main {
+            margin-top: 80px;
+            min-height: calc(100vh - 200px);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 5%;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+            background-size: 400% 400%;
+            animation: gradientShift 8s ease-in-out infinite;
+            color: white;
+            padding: 5rem 0;
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="50" cy="50" r="1" fill="white" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+            animation: float 20s linear infinite;
+            pointer-events: none;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        @keyframes float {
+            0% { transform: translateX(-50px) translateY(-50px); }
+            100% { transform: translateX(50px) translateY(50px); }
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: #FFFFFF;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.7), 1px 1px 2px rgba(0,0,0,0.8);
+            letter-spacing: -1px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            opacity: 0.95;
+            font-weight: 300;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Section Styles */
+        section {
+            margin-bottom: 3rem;
+        }
+
+        h1, h2, h3 {
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+
+        h1 {
+            font-size: 2rem;
+        }
+
+        h2 {
+            font-size: 2rem;
+            position: relative;
+            padding-bottom: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent-color), var(--light-green));
+            border-radius: 2px;
+        }
+
+        h3 {
+            font-size: 1.25rem;
+        }
+
+        p {
+            margin-bottom: 1rem;
+            line-height: 1.8;
+        }
+
+        /* Product Cards */
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2.5rem;
+            margin-top: 2rem;
+        }
+
+        .product-card {
+            background: linear-gradient(145deg, var(--light-bg), var(--pale-green));
+            padding: 2.5rem;
+            border-radius: 16px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 8px 24px rgba(46, 125, 50, 0.15);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent-color), var(--light-green));
+        }
+
+        .product-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 16px 40px rgba(46, 125, 50, 0.25);
+        }
+
+        .product-card h3 {
+            color: var(--primary-color);
+            margin-bottom: 1.2rem;
+            font-size: 1.4rem;
+            font-weight: 600;
+        }
+
+        /* Button Styles */
+        .btn {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: linear-gradient(45deg, var(--accent-color), var(--light-green));
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.9rem;
+            box-shadow: 0 4px 15px rgba(102, 187, 106, 0.3);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(102, 187, 106, 0.4);
+            background: linear-gradient(45deg, var(--light-green), var(--accent-color));
+        }
+
+        /* Language Switcher */
+        .lang-switch {
+            position: absolute;
+            top: 1rem;
+            right: 5%;
+            background-color: var(--light-bg);
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            text-decoration: none;
+            color: var(--text-color);
+            font-size: 0.9rem;
+            transition: background-color 0.3s ease;
+        }
+
+        .lang-switch:hover {
+            background-color: var(--border-color);
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--primary-color);
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 3rem;
+        }
+
+        footer a {
+            color: white;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background-color: var(--bg-color);
+                flex-direction: column;
+                padding: 1rem;
+                box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            }
+
+            .nav-menu.active {
+                display: flex;
+            }
+
+            .menu-toggle {
+                display: flex;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            h1 {
+                font-size: 1.75rem;
+            }
+
+            h2 {
+                font-size: 1.5rem;
+            }
+
+            .product-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="ja" class="logo">
+                <div class="logo-icon">SE</div>
+                <span>株式会社スパイスエンジン</span>
+            </a>
+            <ul class="nav-menu" id="navMenu">
+                
+                <li><a href="#vision">ビジョン</a></li>
+                <li><a href="#products">製品情報</a></li>
+                <li><a href="#company">企業情報</a></li>
+                <li><a href="/blog">ブログ</a></li>
+                
+            </ul>
+            <div class="menu-toggle" id="menuToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
+
+    
+    <a href="/en" class="lang-switch">English</a>
+    
+
+    <main>
+        <div class="hero">
+  <div class="container">
+    <h1>世界最速のAI基盤を創出する</h1>
+    <p>最先端のハードウェアアクセラレーション技術で、AIの未来を加速します</p>
+  </div>
+</div>
+
+<div class="container">
+  <section id="vision">
+    <h2>ビジョン</h2>
+    <p>株式会社スパイスエンジンは、AIコンピューティングの新たな地平を切り開きます。我々の使命は、革新的なハードウェアアクセラレーション技術を通じて、AIアプリケーションの処理速度と効率を飛躍的に向上させることです。</p>
+    <p>FPGAとASICの専門知識を活かし、エッジからクラウドまで、あらゆる規模のAIワークロードに対応する最適なソリューションを提供します。持続可能で高性能なコンピューティングの実現を目指し、技術革新を続けています。</p>
+  </section>
+
+  <section id="products">
+    <h2>製品情報</h2>
+    <div class="product-grid">
+      <div class="product-card">
+        <h3>CNN推論アクセラレータ</h3>
+        <p>最先端のFPGA実装技術により、CNNモデルの推論を高速化。Jetson比で<strong>21倍</strong>の性能向上を実現しました。</p>
+        <ul>
+          <li>FPGA実装による柔軟な展開</li>
+          <li>FPGA/ASIC向けIPコアとして提供</li>
+          <li>低消費電力で高性能を実現</li>
+          <li>エッジデバイスに最適化</li>
+        </ul>
+        <p>画像認識、物体検出、セグメンテーションなど、様々なコンピュータビジョンタスクに対応します。</p>
+      </div>
+
+      <div class="product-card">
+        <h3>LLM推論アクセラレータ</h3>
+        <p>フルスパースな量子化Diffusion Transformerの高速推論に特化した次世代アクセラレータ。</p>
+        <ul>
+          <li>革新的な量子化技術による効率化</li>
+          <li>スパース演算の最適化</li>
+          <li>将来的に2nmプロセスでのASIC実装を計画</li>
+          <li>目標スループット: <strong>1 ExaFLOPS</strong></li>
+        </ul>
+        <p>大規模言語モデルや生成AIアプリケーションの推論を、これまでにない速度で実現します。</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="technology">
+    <h2>技術の特徴</h2>
+    <h3>ハードウェアアクセラレーション</h3>
+    <p>専用ハードウェアによる処理の高速化により、CPUやGPUでは実現できない性能と効率を達成。特定のワークロードに最適化されたアーキテクチャで、消費電力あたりの性能を最大化します。</p>
+
+    <h3>スケーラビリティ</h3>
+    <p>エッジデバイスから大規模データセンターまで、幅広い環境に対応。お客様のニーズに合わせて、最適なソリューションを提供します。</p>
+
+    <h3>省電力設計</h3>
+    <p>環境に配慮した設計により、高性能と低消費電力を両立。持続可能なAIインフラストラクチャの構築に貢献します。</p>
+  </section>
+
+  <section id="company">
+    <h2>企業情報</h2>
+    <table style="width: 100%; border-collapse: collapse; margin-top: 1rem;">
+      <tr style="border-bottom: 1px solid #E1E8ED;">
+        <td style="padding: 1rem; font-weight: bold; width: 30%;">会社名</td>
+        <td style="padding: 1rem;">株式会社スパイスエンジン</td>
+      </tr>
+      <tr style="border-bottom: 1px solid #E1E8ED;">
+        <td style="padding: 1rem; font-weight: bold;">法人番号</td>
+        <td style="padding: 1rem;">3010001226929</td>
+      </tr>
+      <tr style="border-bottom: 1px solid #E1E8ED;">
+        <td style="padding: 1rem; font-weight: bold;">所在地</td>
+        <td style="padding: 1rem;">〒113-0033 東京都文京区本郷6丁目25番14号</td>
+      </tr>
+      <tr style="border-bottom: 1px solid #E1E8ED;">
+        <td style="padding: 1rem; font-weight: bold;">代表者名</td>
+        <td style="padding: 1rem;">神宮司 明良</td>
+      </tr>
+      <tr style="border-bottom: 1px solid #E1E8ED;">
+        <td style="padding: 1rem; font-weight: bold;">設立年月</td>
+        <td style="padding: 1rem;">2022年5月26日</td>
+      </tr>
+      <tr style="border-bottom: 1px solid #E1E8ED;">
+        <td style="padding: 1rem; font-weight: bold;">資本金</td>
+        <td style="padding: 1rem;">100万円 (資本準備金を含む)</td>
+      </tr>
+      <tr>
+        <td style="padding: 1rem; font-weight: bold;">事業内容</td>
+        <td style="padding: 1rem;">人工知能を活用するシステムの研究および開発</td>
+      </tr>
+    </table>
+  </section>
+
+</div>
+
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 SpiceEngine Inc. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        document.getElementById('menuToggle').addEventListener('click', function() {
+            document.getElementById('navMenu').classList.toggle('active');
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                    // Close mobile menu if open
+                    document.getElementById('navMenu').classList.remove('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
