@@ -7,6 +7,11 @@ url: "https://spiceengine.github.io"
 # Build settings
 markdown: kramdown
 theme: minima
+highlighter: rouge
+
+# Blog settings
+paginate: 5
+paginate_path: "/blog/page:num/"
 
 # Exclude files from processing
 exclude:
@@ -15,6 +20,7 @@ exclude:
   - process_logo.py
   - venv/
   - .gitignore
+  - server.log
 
 # Permalink settings
 permalink: pretty
@@ -26,3 +32,15 @@ defaults:
       path: ""
     values:
       layout: "default"
+  -
+    scope:
+      path: "_posts"
+      type: "posts"
+    values:
+      layout: "post"
+      author: "SpiceEngine"
+
+# Blog configuration
+blog:
+  title: "SpiceEngine Tech Blog"
+  description: "AIハードウェアアクセラレーション技術の最前線"
