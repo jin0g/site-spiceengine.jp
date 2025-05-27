@@ -67,26 +67,28 @@ lang: ja
         <td style="padding: 1rem;">株式会社スパイスエンジン</td>
       </tr>
       <tr style="border-bottom: 1px solid #E1E8ED;">
-        <td style="padding: 1rem; font-weight: bold;">設立</td>
-        <td style="padding: 1rem;">2020年11月</td>
-      </tr>
-      <tr style="border-bottom: 1px solid #E1E8ED;">
-        <td style="padding: 1rem; font-weight: bold;">代表取締役</td>
-        <td style="padding: 1rem;">寺岡 仁</td>
+        <td style="padding: 1rem; font-weight: bold;">法人番号</td>
+        <td style="padding: 1rem;">3010001226929</td>
       </tr>
       <tr style="border-bottom: 1px solid #E1E8ED;">
         <td style="padding: 1rem; font-weight: bold;">所在地</td>
-        <td style="padding: 1rem;">東京都港区港南2-15-1 品川インターシティA棟28階</td>
+        <td style="padding: 1rem;">〒113-0033 東京都文京区本郷6丁目25番14号</td>
+      </tr>
+      <tr style="border-bottom: 1px solid #E1E8ED;">
+        <td style="padding: 1rem; font-weight: bold;">代表者名</td>
+        <td style="padding: 1rem;">神宮司 明良</td>
+      </tr>
+      <tr style="border-bottom: 1px solid #E1E8ED;">
+        <td style="padding: 1rem; font-weight: bold;">設立年月</td>
+        <td style="padding: 1rem;">2022年5月26日</td>
+      </tr>
+      <tr style="border-bottom: 1px solid #E1E8ED;">
+        <td style="padding: 1rem; font-weight: bold;">資本金</td>
+        <td style="padding: 1rem;">100万円 (資本準備金を含む)</td>
       </tr>
       <tr>
         <td style="padding: 1rem; font-weight: bold;">事業内容</td>
-        <td style="padding: 1rem;">
-          <ul style="list-style-position: inside;">
-            <li>AIハードウェアアクセラレータの開発・販売</li>
-            <li>FPGA/ASIC IPコアの設計・ライセンス提供</li>
-            <li>AI推論システムのコンサルティング</li>
-          </ul>
-        </td>
+        <td style="padding: 1rem;">人工知能を活用するシステムの研究および開発</td>
       </tr>
     </table>
   </section>

@@ -64,29 +64,23 @@ lang: en
     <table style="width: 100%; border-collapse: collapse; margin-top: 1rem;">
       <tr style="border-bottom: 1px solid #E1E8ED;">
         <td style="padding: 1rem; font-weight: bold; width: 30%;">Company Name</td>
-        <td style="padding: 1rem;">SpiceEngine Inc.</td>
+        <td style="padding: 1rem;">Spice Engine Co., Ltd. (株式会社スパイスエンジン)</td>
       </tr>
       <tr style="border-bottom: 1px solid #E1E8ED;">
-        <td style="padding: 1rem; font-weight: bold;">Founded</td>
-        <td style="padding: 1rem;">November 2020</td>
+        <td style="padding: 1rem; font-weight: bold;">Company Location</td>
+        <td style="padding: 1rem;">(113-0033) 6-25-14 Hongo, Bunkyo-ku, Tokyo, Japan</td>
       </tr>
       <tr style="border-bottom: 1px solid #E1E8ED;">
         <td style="padding: 1rem; font-weight: bold;">CEO</td>
-        <td style="padding: 1rem;">Jin Teraoka</td>
+        <td style="padding: 1rem;">Akira JINGUJI</td>
       </tr>
       <tr style="border-bottom: 1px solid #E1E8ED;">
-        <td style="padding: 1rem; font-weight: bold;">Location</td>
-        <td style="padding: 1rem;">Shinagawa Intercity Tower A 28F, 2-15-1 Konan, Minato-ku, Tokyo</td>
+        <td style="padding: 1rem; font-weight: bold;">Business</td>
+        <td style="padding: 1rem;">R&D of Utilizing Artificial Intelligence Systems</td>
       </tr>
       <tr>
-        <td style="padding: 1rem; font-weight: bold;">Business Activities</td>
-        <td style="padding: 1rem;">
-          <ul style="list-style-position: inside;">
-            <li>Development and sales of AI hardware accelerators</li>
-            <li>Design and licensing of FPGA/ASIC IP cores</li>
-            <li>AI inference system consulting</li>
-          </ul>
-        </td>
+        <td style="padding: 1rem; font-weight: bold;">Establishment</td>
+        <td style="padding: 1rem;">2022</td>
       </tr>
     </table>
   </section>
