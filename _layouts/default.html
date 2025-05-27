@@ -281,23 +281,6 @@
             background: linear-gradient(45deg, var(--light-green), var(--accent-color));
         }
 
-        /* Language Switcher */
-        .lang-switch {
-            position: absolute;
-            top: 1rem;
-            right: 5%;
-            background-color: var(--light-bg);
-            padding: 0.5rem 1rem;
-            border-radius: 4px;
-            text-decoration: none;
-            color: var(--text-color);
-            font-size: 0.9rem;
-            transition: background-color 0.3s ease;
-        }
-
-        .lang-switch:hover {
-            background-color: var(--border-color);
-        }
 
         /* Footer */
         footer {
@@ -364,22 +347,15 @@
 <body>
     <header>
         <nav>
-            <a href="{{ page.lang == 'en' ? '/en' : '/' }}" class="logo">
+            <a href="/" class="logo">
                 <div class="logo-icon">SE</div>
                 <span>株式会社スパイスエンジン</span>
             </a>
             <ul class="nav-menu" id="navMenu">
-                {% if page.lang == 'en' %}
-                <li><a href="#vision">Vision</a></li>
-                <li><a href="#products">Products</a></li>
-                <li><a href="#company">Company</a></li>
-                <li><a href="/blog">Blog</a></li>
-                {% else %}
                 <li><a href="#vision">ビジョン</a></li>
                 <li><a href="#products">製品情報</a></li>
                 <li><a href="#company">企業情報</a></li>
                 <li><a href="/blog">ブログ</a></li>
-                {% endif %}
             </ul>
             <div class="menu-toggle" id="menuToggle">
                 <span></span>
@@ -389,11 +365,6 @@
         </nav>
     </header>
 
-    {% if page.lang == 'en' %}
-    <a href="/" class="lang-switch">日本語</a>
-    {% else %}
-    <a href="/en" class="lang-switch">English</a>
-    {% endif %}
 
     <main>
         {{ content }}
