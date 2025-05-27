@@ -93,11 +93,4 @@ lang: ja
     </table>
   </section>
 
-  <section id="contact">
-    <h2>お問い合わせ</h2>
-    <p>製品に関するお問い合わせ、技術的なご相談、その他のご質問は、以下のフォームからお気軽にお問い合わせください。</p>
-    <p style="text-align: center; margin-top: 2rem;">
-      <a href="https://forms.gle/bfbYWukEu7gexCRn9" class="btn" target="_blank">お問い合わせフォームへ</a>
-    </p>
-  </section>
 </div>
