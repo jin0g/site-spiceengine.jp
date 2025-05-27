@@ -1,19 +1,16 @@
-name: Agent
-on:
-  issues:                      { types: [opened, assigned, edited] }
-  issue_comment:               { types: [created, edited] }
-  pull_request:                { types: [opened, edited] }
-  pull_request_review:         { types: [submitted] }
-  pull_request_review_comment: { types: [created, edited] }
+name: SpiceEngine Claude Code Action
+on: [issues, issue_comment, pull_request, pull_request_review, pull_request_review_comment]
 concurrency:
   group: ai-assistant-${{ github.event.issue.number || github.event.pull_request.number }}
   cancel-in-progress: true
 jobs:
-  claude:
+  spiceengine-action:
     runs-on: self-hosted
-    permissions: { contents: write, pull-requests: write, issues: write}
+    permissions: write-all
     steps:
     - uses: actions/checkout@v4
     - uses: spiceengine/action@main
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
+        redis-url: ${{ secrets.REDIS_URL }}
+        redis-token: ${{ secrets.REDIS_TOKEN }}
