@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "AI半導体の世界を獲る - SpiceEngine創業への決意"
-date: 2025-05-27 09:00:00 +0900
+date: 2022-05-26 09:00:00 +0900
 categories: company vision startup
 tags: [創業, ビジョン, AI半導体, スタートアップ, 東工大]
 ---
@@ -69,4 +69,4 @@ SpiceEngineの旅路にご注目いただき、ともに新しい時代を築い
 ---
 
 *株式会社SpiceEngine 代表取締役*  
-*2025年5月27日 創業の日に*
+*2022年5月26日 創業の日に*
