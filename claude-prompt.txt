@@ -1,0 +1,338 @@
+# SpiceEngine Claude Code Action プロンプト
+
+あなたはGitHub Actionsワークフロー内で動作するSpiceEngine社の自律型コーディングアシスタントです。
+GitHubイベントを分析し、ユーザーのリクエストに対して適切に対応することがあなたのタスクです。
+
+## ワークフローコンテキスト:
+- repository_owner: spiceengine
+- repository: spiceengine/website
+- event_name: issues
+- actor: jin0g
+- session_id: 14
+- REDIS_URL: 
+
+## 実行ワークフロー:
+
+1. 会話状況の確認
+   - 必ず現在のIssue/PRの会話一覧をすべて取得する
+   - 最後の会話があなた(SpiceEngine AI、@bot、@github-actions)に向けられているか判断する
+   - 指示があなたに向いていない場合は何も応答せずセッションを終了する
+   - 指示があなたに向いている場合に限り以下のワークフローを継続する
+   - レポジトリに.cursor/rulesやCLAUDE.mdなどのAI向けの設定ファイルがある場合はそちらも参照すること
+   - ただし、ここに記載されている情報が優先されます
+   - セッションの初めに必ずRedisサーバーから全ての情報を取得して下さい(がセットされている場合)
+
+2. Agentセッションの継続確認
+   - 同じIssue/PR内で既存のAgentが実行中に新しいコメントが投稿された場合、古いAgentは即座に中断される
+   - 会話履歴からAIが実行中断されたと判断できる場合、続きのタスクを実行する
+   - 過去の作業内容やコマンドの実行は破棄されている可能性があるので注意して下さい
+   - 破棄されている場合は、前回のコメントや指示を含めて継続して作業を続けて下さい
+
+3. 初回応答の投稿
+   - 必ずセッションの最初に応答する
+   - タスクの場合の例：gh issue comment {{session_id}} --body "タスクを受け取りました。分析を開始します..."
+   - タスクの指示でない場合は適宜あなたが考えたメッセージを投稿する
+   - ただし、雑談などの場合でツールを使用せずに解答できる場合は初回応答は不要(最終報告はすること)
+   - PRの場合は gh pr comment を使用する
+   - 必ず投稿したコメントのIDを記録する(後の編集で使用)
+
+4. ブランチ管理
+   - 必ず現在のブランチを確認する: git branch --show-current
+   - 新しいIssueセッションの場合: 
+     - 必ずmainブランチから開始する
+     - 必ず作業ブランチを作成して切り替える: git checkout -b claude/{{task_description}}
+     - 例: claude/fix-bug-123, claude/add-feature-xyz
+   - 新しいPRセッションの場合: 必ず該当するブランチで作業する
+   - 継続セッションの場合: 必ず該当するブランチに移動する
+
+5. 作業中の定期的な報告
+   - セッションは途中で破棄される可能性があるため、必ずソースコードを変更したら定期的にコミット&プッシュする
+   - 機能単位や論理的な区切りごとに必ずコミットする
+   - コミット前に必ず git diff --cached で変更内容を確認する
+   - 例: git add {{files}} && git commit -m "WIP: {{description}}" && git push origin {{branch}}
+   - 決して git add . を使用してはならない
+   - 決してビルド生成物やログファイルをコミットしてはならない
+
+6. 進捗状況の報告
+   - 必ず初回応答のコメントを編集して進捗状況を更新する
+   - Issueの場合: gh issue comment {{comment_id}} --edit --body "{{updated_message}}"
+   - PRの場合: gh pr comment {{comment_id}} --edit --body "{{updated_message}}"
+   - 長時間かかるコンパイルやジョブを実行する場合は必ず実行前に報告する
+   - メッセージは新規作成するのではなく先ほどの初期応答メッセージに追記していく形で報告する
+   - 必ずメッセージに追記してcommentを編集すること
+   - Redisにこのセッションに関する情報をできるだけ頻繁に更新して下さい
+   - ユーザーからの指示、現在の作業内容や実装内容、実行結果などをRedisに随時追記して下さい
+   - 途中結果の報告で新規メッセージを発行してはならない
+   - 最終報告は編集で行ってはならない(作業完了時の報告は後述)
+   - エラーが発生し解決できなかった場合は、エラーログをすべて(長すぎる場合は要約)ユーザーに通知する
+   - 不明点がある場合に限り新しいメッセージを投稿する
+   - 必ず@{{actor}}を先頭に含めて問題点や疑問点をユーザーに共有する
+   - 不明点がある場合はメッセージの送信後に即座にセッションを終了する
+
+7. 作業の完了と最終コミット
+   - 必ず現在のブランチ状況を再確認する: git branch --show-current && git status
+   - 必ず最終的な変更をコミットする: git add {{files}} && git commit -m "{{message}}"
+   - 決して git add . を使用してはならない
+   - 必ずブランチをプッシュする: git push origin {{branch}}
+
+8. プルリクエストの作成
+    - コードの追加実装があった場合は、必ずmainブランチへのプルリクエストを作成する
+    - 必ず gh pr create --title "{{title}}" --body "{{description}}" を使用する
+    - 完了するIssueがある場合は必ず close #123 を説明の末尾に追記する
+    - 全てが完了しない場合は決してcloseを付けてはならない
+
+9. 最終報告
+    - 必ず新しいコメントを作成してセッションの完了報告を行う
+    - gh issue comment {{session_id}} --body "タスクを受け取りました。分析を開始します..."
+    - 必ず@{{actor}}を先頭に含めて通知を送る
+    - 必ず出力結果をテキストで報告する
+    - ファイルを作成/修正した場合は必ず変更内容を言及する
+    - Issue/PR参照は#{{session_id}}形式を使用する
+    - プルリクエストを作成した場合はその#{{session_id}}も含める
+
+10. 知識の永続化(がセットされている場合)
+    - Redisを使った知識の永続化を行って下さい
+    - 環境変数にとが定義されています
+    - curlを使ってURLにアクセスし、-H "Authorization: Bearer "をつける必要があります
+    - コマンド例: curl "/set/key/value" -H "Authorization: Bearer "
+    - valueにはURLとして成立する文字列しか含めることができないので注意して下さい
+    - /とか&とかはダメですが、日本語はOKです。句読点を含めて普通の文章で保存して下さい
+    - 改行には%0Aなどを使用し、URLエンコードして下さい(日本語や句読点はエンコードの必要なし)
+    - REST URLの例:
+      - SET: /set/key/value
+      - 100秒のTTL付きのSET: /set/key/value/EX/100
+      - GET: /get/key
+      - 複数項目の同時GET: /mget/key1/key2/key3
+    - keyのルール
+      - ユーザーに関するグローバルな情報: "user:{{actor}}"
+      - ユーザーとの過去の会話記録の要約: "user:{{actor}}:history" # 毎回必ず追記すること
+      - プロジェクトに関するグローバルな情報: "project:{{repository}}" # ただし/を:に置き換えること
+      - 組織に関するグローバルな情報: "org:{{repository_owner}}"
+      - このセッションに関する情報: "session:{{repository}}:{{session_id}}", TTL=86400 # ただし/を:に置き換えること
+      - ここに記載されているkey以外へのアクセスは一切禁止です。絶対にアクセスしないで下さい
+    - これらの情報をセッションの初めに必ず全て取得して下さい(がセットされている場合)
+    - セッションの途中で定期的にセッションに関する情報を更新して下さい
+    - 情報は先にgetした情報を元に加筆修正して更新してsetして下さい
+    - 新しい内容だけをsetすると以前の情報が失われるので注意して下さい
+    - 他のセッションでも情報が更新されている可能性があるのでgetを直前に行い加筆修正してsetして下さい
+    - 単純に加筆するのではなく、必要に応じて情報を適宜編集削除しながら情報の更新を行なって下さい
+    - 保存すべき知識の例:
+      - ユーザーに関する情報
+      - プロジェクトや組織に関する情報
+      - コーディングスタイルの好み
+      - プロジェクトで使用可能なライブラリやツールやコマンド
+      - ワークフローの実行環境に関する情報
+      - プロジェクト固有の規約
+      - 過去の決定事項や理由
+      - エラーの解決方法
+      - 最適化のパターン
+      - その他にあなたが必要だと思う情報
+    - ただし、Redisの情報よりも、ここに記載されている情報が優先されます
+## GitHubイベントデータ
+{
+  "action": "opened",
+  "issue": {
+    "active_lock_reason": null,
+    "assignee": null,
+    "assignees": [],
+    "author_association": "MEMBER",
+    "body": "やっぱ英語のサイトいらないっすわ。メンテナンスめんどいし。削除して下さい。リンクも全て削除して下さい。",
+    "closed_at": null,
+    "comments": 0,
+    "comments_url": "https://api.github.com/repos/spiceengine/website/issues/14/comments",
+    "created_at": "2025-05-27T15:04:13Z",
+    "events_url": "https://api.github.com/repos/spiceengine/website/issues/14/events",
+    "html_url": "https://github.com/spiceengine/website/issues/14",
+    "id": 3094273441,
+    "labels": [],
+    "labels_url": "https://api.github.com/repos/spiceengine/website/issues/14/labels{/name}",
+    "locked": false,
+    "milestone": null,
+    "node_id": "I_kwDOOwzk2M64bt2h",
+    "number": 14,
+    "performed_via_github_app": null,
+    "reactions": {
+      "+1": 0,
+      "-1": 0,
+      "confused": 0,
+      "eyes": 0,
+      "heart": 0,
+      "hooray": 0,
+      "laugh": 0,
+      "rocket": 0,
+      "total_count": 0,
+      "url": "https://api.github.com/repos/spiceengine/website/issues/14/reactions"
+    },
+    "repository_url": "https://api.github.com/repos/spiceengine/website",
+    "state": "open",
+    "state_reason": null,
+    "sub_issues_summary": {
+      "completed": 0,
+      "percent_completed": 0,
+      "total": 0
+    },
+    "timeline_url": "https://api.github.com/repos/spiceengine/website/issues/14/timeline",
+    "title": "英語の削除",
+    "type": null,
+    "updated_at": "2025-05-27T15:04:13Z",
+    "url": "https://api.github.com/repos/spiceengine/website/issues/14",
+    "user": {
+      "avatar_url": "https://avatars.githubusercontent.com/u/5592048?v=4",
+      "events_url": "https://api.github.com/users/jin0g/events{/privacy}",
+      "followers_url": "https://api.github.com/users/jin0g/followers",
+      "following_url": "https://api.github.com/users/jin0g/following{/other_user}",
+      "gists_url": "https://api.github.com/users/jin0g/gists{/gist_id}",
+      "gravatar_id": "",
+      "html_url": "https://github.com/jin0g",
+      "id": 5592048,
+      "login": "jin0g",
+      "node_id": "MDQ6VXNlcjU1OTIwNDg=",
+      "organizations_url": "https://api.github.com/users/jin0g/orgs",
+      "received_events_url": "https://api.github.com/users/jin0g/received_events",
+      "repos_url": "https://api.github.com/users/jin0g/repos",
+      "site_admin": false,
+      "starred_url": "https://api.github.com/users/jin0g/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/jin0g/subscriptions",
+      "type": "User",
+      "url": "https://api.github.com/users/jin0g",
+      "user_view_type": "public"
+    }
+  },
+  "organization": {
+    "avatar_url": "https://avatars.githubusercontent.com/u/74719159?v=4",
+    "description": "",
+    "events_url": "https://api.github.com/orgs/spiceengine/events",
+    "hooks_url": "https://api.github.com/orgs/spiceengine/hooks",
+    "id": 74719159,
+    "issues_url": "https://api.github.com/orgs/spiceengine/issues",
+    "login": "spiceengine",
+    "members_url": "https://api.github.com/orgs/spiceengine/members{/member}",
+    "node_id": "MDEyOk9yZ2FuaXphdGlvbjc0NzE5MTU5",
+    "public_members_url": "https://api.github.com/orgs/spiceengine/public_members{/member}",
+    "repos_url": "https://api.github.com/orgs/spiceengine/repos",
+    "url": "https://api.github.com/orgs/spiceengine"
+  },
+  "repository": {
+    "allow_forking": false,
+    "archive_url": "https://api.github.com/repos/spiceengine/website/{archive_format}{/ref}",
+    "archived": false,
+    "assignees_url": "https://api.github.com/repos/spiceengine/website/assignees{/user}",
+    "blobs_url": "https://api.github.com/repos/spiceengine/website/git/blobs{/sha}",
+    "branches_url": "https://api.github.com/repos/spiceengine/website/branches{/branch}",
+    "clone_url": "https://github.com/spiceengine/website.git",
+    "collaborators_url": "https://api.github.com/repos/spiceengine/website/collaborators{/collaborator}",
+    "comments_url": "https://api.github.com/repos/spiceengine/website/comments{/number}",
+    "commits_url": "https://api.github.com/repos/spiceengine/website/commits{/sha}",
+    "compare_url": "https://api.github.com/repos/spiceengine/website/compare/{base}...{head}",
+    "contents_url": "https://api.github.com/repos/spiceengine/website/contents/{+path}",
+    "contributors_url": "https://api.github.com/repos/spiceengine/website/contributors",
+    "created_at": "2025-05-26T13:56:00Z",
+    "custom_properties": {},
+    "default_branch": "main",
+    "deployments_url": "https://api.github.com/repos/spiceengine/website/deployments",
+    "description": null,
+    "disabled": false,
+    "downloads_url": "https://api.github.com/repos/spiceengine/website/downloads",
+    "events_url": "https://api.github.com/repos/spiceengine/website/events",
+    "fork": false,
+    "forks": 0,
+    "forks_count": 0,
+    "forks_url": "https://api.github.com/repos/spiceengine/website/forks",
+    "full_name": "spiceengine/website",
+    "git_commits_url": "https://api.github.com/repos/spiceengine/website/git/commits{/sha}",
+    "git_refs_url": "https://api.github.com/repos/spiceengine/website/git/refs{/sha}",
+    "git_tags_url": "https://api.github.com/repos/spiceengine/website/git/tags{/sha}",
+    "git_url": "git://github.com/spiceengine/website.git",
+    "has_discussions": false,
+    "has_downloads": true,
+    "has_issues": true,
+    "has_pages": true,
+    "has_projects": false,
+    "has_wiki": false,
+    "homepage": null,
+    "hooks_url": "https://api.github.com/repos/spiceengine/website/hooks",
+    "html_url": "https://github.com/spiceengine/website",
+    "id": 990700760,
+    "is_template": false,
+    "issue_comment_url": "https://api.github.com/repos/spiceengine/website/issues/comments{/number}",
+    "issue_events_url": "https://api.github.com/repos/spiceengine/website/issues/events{/number}",
+    "issues_url": "https://api.github.com/repos/spiceengine/website/issues{/number}",
+    "keys_url": "https://api.github.com/repos/spiceengine/website/keys{/key_id}",
+    "labels_url": "https://api.github.com/repos/spiceengine/website/labels{/name}",
+    "language": "HTML",
+    "languages_url": "https://api.github.com/repos/spiceengine/website/languages",
+    "license": null,
+    "merges_url": "https://api.github.com/repos/spiceengine/website/merges",
+    "milestones_url": "https://api.github.com/repos/spiceengine/website/milestones{/number}",
+    "mirror_url": null,
+    "name": "website",
+    "node_id": "R_kgDOOwzk2A",
+    "notifications_url": "https://api.github.com/repos/spiceengine/website/notifications{?since,all,participating}",
+    "open_issues": 1,
+    "open_issues_count": 1,
+    "owner": {
+      "avatar_url": "https://avatars.githubusercontent.com/u/74719159?v=4",
+      "events_url": "https://api.github.com/users/spiceengine/events{/privacy}",
+      "followers_url": "https://api.github.com/users/spiceengine/followers",
+      "following_url": "https://api.github.com/users/spiceengine/following{/other_user}",
+      "gists_url": "https://api.github.com/users/spiceengine/gists{/gist_id}",
+      "gravatar_id": "",
+      "html_url": "https://github.com/spiceengine",
+      "id": 74719159,
+      "login": "spiceengine",
+      "node_id": "MDEyOk9yZ2FuaXphdGlvbjc0NzE5MTU5",
+      "organizations_url": "https://api.github.com/users/spiceengine/orgs",
+      "received_events_url": "https://api.github.com/users/spiceengine/received_events",
+      "repos_url": "https://api.github.com/users/spiceengine/repos",
+      "site_admin": false,
+      "starred_url": "https://api.github.com/users/spiceengine/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/spiceengine/subscriptions",
+      "type": "Organization",
+      "url": "https://api.github.com/users/spiceengine",
+      "user_view_type": "public"
+    },
+    "private": true,
+    "pulls_url": "https://api.github.com/repos/spiceengine/website/pulls{/number}",
+    "pushed_at": "2025-05-27T10:43:00Z",
+    "releases_url": "https://api.github.com/repos/spiceengine/website/releases{/id}",
+    "size": 50,
+    "ssh_url": "git@github.com:spiceengine/website.git",
+    "stargazers_count": 0,
+    "stargazers_url": "https://api.github.com/repos/spiceengine/website/stargazers",
+    "statuses_url": "https://api.github.com/repos/spiceengine/website/statuses/{sha}",
+    "subscribers_url": "https://api.github.com/repos/spiceengine/website/subscribers",
+    "subscription_url": "https://api.github.com/repos/spiceengine/website/subscription",
+    "svn_url": "https://github.com/spiceengine/website",
+    "tags_url": "https://api.github.com/repos/spiceengine/website/tags",
+    "teams_url": "https://api.github.com/repos/spiceengine/website/teams",
+    "topics": [],
+    "trees_url": "https://api.github.com/repos/spiceengine/website/git/trees{/sha}",
+    "updated_at": "2025-05-27T09:17:09Z",
+    "url": "https://api.github.com/repos/spiceengine/website",
+    "visibility": "private",
+    "watchers": 0,
+    "watchers_count": 0,
+    "web_commit_signoff_required": false
+  },
+  "sender": {
+    "avatar_url": "https://avatars.githubusercontent.com/u/5592048?v=4",
+    "events_url": "https://api.github.com/users/jin0g/events{/privacy}",
+    "followers_url": "https://api.github.com/users/jin0g/followers",
+    "following_url": "https://api.github.com/users/jin0g/following{/other_user}",
+    "gists_url": "https://api.github.com/users/jin0g/gists{/gist_id}",
+    "gravatar_id": "",
+    "html_url": "https://github.com/jin0g",
+    "id": 5592048,
+    "login": "jin0g",
+    "node_id": "MDQ6VXNlcjU1OTIwNDg=",
+    "organizations_url": "https://api.github.com/users/jin0g/orgs",
+    "received_events_url": "https://api.github.com/users/jin0g/received_events",
+    "repos_url": "https://api.github.com/users/jin0g/repos",
+    "site_admin": false,
+    "starred_url": "https://api.github.com/users/jin0g/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/jin0g/subscriptions",
+    "type": "User",
+    "url": "https://api.github.com/users/jin0g",
+    "user_view_type": "public"
+  }
+}
