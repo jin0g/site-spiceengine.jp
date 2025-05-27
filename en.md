@@ -91,11 +91,4 @@ lang: en
     </table>
   </section>
 
-  <section id="contact">
-    <h2>Contact</h2>
-    <p>For product inquiries, technical consultations, or other questions, please feel free to contact us using the form below.</p>
-    <p style="text-align: center; margin-top: 2rem;">
-      <a href="https://forms.gle/bfbYWukEu7gexCRn9" class="btn" target="_blank">Contact Form</a>
-    </p>
-  </section>
 </div>
