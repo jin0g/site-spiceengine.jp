@@ -7,7 +7,11 @@ jobs:
   spiceengine-action:
     runs-on: self-hosted
     permissions: write-all
-    if: github.actor != 'spikybot'
+    if: github.actor != 'spikybot' && (
+      contains(github.event.issue.body, '@spikybot') ||
+      contains(github.event.comment.body, '@spikybot') ||
+      contains(github.event.pull_request.body, '@spikybot') ||
+      contains(github.event.review.body, '@spikybot'))
     steps:
     - uses: actions/checkout@v4
     - uses: spiceengine/action@main
