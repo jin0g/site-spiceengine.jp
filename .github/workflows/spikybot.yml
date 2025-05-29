@@ -1,16 +1,16 @@
-name: SpiceEngine Claude Code Action
+name: SpikyBot Code Agent
 on: [issues, issue_comment, pull_request, pull_request_review, pull_request_review_comment]
 concurrency:
-  group: ai-assistant-${{ github.event.issue.number || github.event.pull_request.number }}
+  group: ai-assistant-${{ github.actor }}-${{ github.event.issue.number || github.event.pull_request.number }}
   cancel-in-progress: true
 jobs:
   spiceengine-action:
     runs-on: self-hosted
     permissions: write-all
+    if: github.actor != 'spikybot'
     steps:
     - uses: actions/checkout@v4
     - uses: spiceengine/action@main
       with:
-        github-token: ${{ secrets.GITHUB_TOKEN }}
         redis-url: ${{ secrets.REDIS_URL }}
         redis-token: ${{ secrets.REDIS_TOKEN }}
