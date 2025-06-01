@@ -86,6 +86,10 @@ lang: ja
         <td style="padding: 1rem; font-weight: bold;">資本金</td>
         <td style="padding: 1rem;">100万円 (資本準備金を含む)</td>
       </tr>
+      <tr style="border-bottom: 1px solid #E1E8ED;">
+        <td style="padding: 1rem; font-weight: bold;">従業員数</td>
+        <td style="padding: 1rem;">3名（内業務委託2名）</td>
+      </tr>
       <tr>
         <td style="padding: 1rem; font-weight: bold;">事業内容</td>
         <td style="padding: 1rem;">人工知能を活用するシステムの研究および開発</td>
