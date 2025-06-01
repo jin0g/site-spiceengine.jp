@@ -6,8 +6,8 @@ lang: ja
 
 <div class="hero">
   <div class="container">
-    <h1>世界最速のAI基盤を創出する</h1>
-    <p>最先端のハードウェアアクセラレーション技術で、AIの未来を加速します</p>
+    <h1>世界最速AI基盤を創出</h1>
+    <p>最先端ハードウェア技術で<br>AIの未来を加速</p>
   </div>
 </div>
 
