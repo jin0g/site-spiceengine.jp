@@ -281,6 +281,211 @@
             background: linear-gradient(45deg, var(--light-green), var(--accent-color));
         }
 
+        /* Company Song Styles */
+        .song-section {
+            background: linear-gradient(135deg, var(--pale-green), var(--light-bg));
+            border-radius: 20px;
+            padding: 3rem;
+            margin: 3rem 0;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 8px 32px rgba(46, 125, 50, 0.1);
+        }
+
+        .song-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .song-title {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .song-subtitle {
+            font-size: 1.2rem;
+            color: var(--secondary-color);
+            font-weight: 300;
+            margin-bottom: 0.5rem;
+        }
+
+        .song-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            background: rgba(255, 255, 255, 0.6);
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+            border: 1px solid rgba(200, 230, 201, 0.5);
+        }
+
+        .song-info-item {
+            text-align: center;
+        }
+
+        .song-info-label {
+            font-weight: bold;
+            color: var(--primary-color);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .song-info-value {
+            color: var(--text-color);
+            font-size: 1.1rem;
+            margin-top: 0.5rem;
+        }
+
+        .lyrics-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            margin-top: 2rem;
+        }
+
+        .lyrics-column {
+            background: rgba(255, 255, 255, 0.8);
+            padding: 2rem;
+            border-radius: 16px;
+            border: 1px solid rgba(200, 230, 201, 0.5);
+            box-shadow: 0 4px 16px rgba(46, 125, 50, 0.08);
+        }
+
+        .verse {
+            margin-bottom: 2.5rem;
+            padding: 1.5rem;
+            background: linear-gradient(145deg, rgba(255, 255, 255, 0.9), rgba(232, 245, 232, 0.9));
+            border-radius: 12px;
+            border-left: 4px solid var(--accent-color);
+            transition: all 0.3s ease;
+        }
+
+        .verse:hover {
+            transform: translateX(8px);
+            box-shadow: 0 4px 20px rgba(102, 187, 106, 0.2);
+        }
+
+        .verse-title {
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+            border-bottom: 2px solid var(--accent-color);
+            padding-bottom: 0.5rem;
+            display: inline-block;
+        }
+
+        .verse-content {
+            line-height: 2;
+            color: var(--text-color);
+        }
+
+        .lyric-line {
+            margin-bottom: 0.8rem;
+            padding: 0.3rem 0;
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
+        }
+
+        .lyric-line:hover {
+            background-color: rgba(165, 214, 167, 0.3);
+            padding-left: 0.5rem;
+        }
+
+        .melody-notation {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .melody-card {
+            background: linear-gradient(145deg, rgba(255, 255, 255, 0.95), rgba(241, 248, 233, 0.95));
+            padding: 2rem;
+            border-radius: 16px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 6px 24px rgba(46, 125, 50, 0.12);
+            transition: all 0.4s ease;
+        }
+
+        .melody-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 12px 36px rgba(46, 125, 50, 0.2);
+        }
+
+        .melody-title {
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+            text-align: center;
+            border-bottom: 2px solid var(--accent-color);
+            padding-bottom: 0.5rem;
+        }
+
+        .melody-notes {
+            text-align: center;
+            font-size: 1.3rem;
+            color: var(--secondary-color);
+            font-weight: 500;
+            letter-spacing: 2px;
+            background: rgba(232, 245, 232, 0.8);
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+        }
+
+        .melody-lyrics {
+            text-align: center;
+            color: var(--text-color);
+            font-style: italic;
+            line-height: 1.6;
+        }
+
+        .song-credits {
+            text-align: center;
+            margin-top: 3rem;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 12px;
+            border: 1px solid rgba(200, 230, 201, 0.5);
+        }
+
+        .song-credits p {
+            margin-bottom: 0.5rem;
+            color: var(--text-color);
+        }
+
+        /* Responsive Design for Song Section */
+        @media (max-width: 768px) {
+            .song-section {
+                padding: 2rem 1rem;
+                margin: 2rem 0;
+            }
+
+            .song-title {
+                font-size: 2rem;
+            }
+
+            .lyrics-container {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .melody-notation {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .song-info {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+        }
+
 
         /* Footer */
         footer {
@@ -354,6 +559,7 @@
             <ul class="nav-menu" id="navMenu">
                 <li><a href="#vision">ビジョン</a></li>
                 <li><a href="#products">製品情報</a></li>
+                <li><a href="#song">社歌</a></li>
                 <li><a href="#company">企業情報</a></li>
                 <li><a href="/blog">ブログ</a></li>
             </ul>
