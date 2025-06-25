@@ -300,8 +300,24 @@
             text-decoration: underline;
         }
 
+        /* Mobile-specific line breaks */
+        .sp-br {
+            display: none;
+        }
+        
+        .pc-text {
+            display: inline;
+        }
+
         /* Responsive Design */
         @media (max-width: 768px) {
+            .sp-br {
+                display: inline;
+            }
+            
+            .pc-text {
+                display: none;
+            }
             .nav-menu {
                 display: none;
                 position: absolute;
@@ -324,10 +340,12 @@
 
             .hero h1 {
                 font-size: 2rem;
+                line-height: 1.3;
             }
 
             .hero p {
                 font-size: 1rem;
+                line-height: 1.4;
             }
 
             h1 {
@@ -349,7 +367,7 @@
         <nav>
             <a href="/" class="logo">
                 <div class="logo-icon">SE</div>
-                <span>株式会社スパイスエンジン</span>
+                <span><span class="pc-text">株式会社</span>スパイスエンジン</span>
             </a>
             <ul class="nav-menu" id="navMenu">
                 <li><a href="#vision">ビジョン</a></li>

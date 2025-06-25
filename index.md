@@ -6,23 +6,23 @@ lang: ja
 
 <div class="hero">
   <div class="container">
-    <h1>世界最速のAI基盤を創出する</h1>
-    <p>最先端のハードウェアアクセラレーション技術で、AIの未来を加速します</p>
+    <h1>世界最速の<br class="sp-br">AI基盤を創出</h1>
+    <p>最先端技術で<br class="sp-br">AIの未来を加速</p>
   </div>
 </div>
 
 <div class="container">
   <section id="vision">
     <h2>ビジョン</h2>
-    <p>株式会社スパイスエンジンは、AIコンピューティングの新たな地平を切り開きます。我々の使命は、革新的なハードウェアアクセラレーション技術を通じて、AIアプリケーションの処理速度と効率を飛躍的に向上させることです。</p>
-    <p>FPGAとASICの専門知識を活かし、エッジからクラウドまで、あらゆる規模のAIワークロードに対応する最適なソリューションを提供します。持続可能で高性能なコンピューティングの実現を目指し、技術革新を続けています。</p>
+    <p>スパイスエンジンは、AIコンピューティングの新地平を切り開きます。革新的なハードウェア技術により、AI処理の速度と効率を飛躍的に向上させます。</p>
+    <p>FPGAとASICの専門技術で、エッジからクラウドまで対応。持続可能で高性能なコンピューティングを実現します。</p>
   </section>
 
   <section id="products">
     <h2>製品情報</h2>
     <div class="product-grid">
       <div class="product-card">
-        <h3>CNN推論アクセラレータ</h3>
+        <h3>CNN推論<br class="sp-br">アクセラレータ</h3>
         <p>最先端のFPGA実装技術により、CNNモデルの推論を高速化。Jetson比で<strong>21倍</strong>の性能向上を実現しました。</p>
         <ul>
           <li>FPGA実装による柔軟な展開</li>
@@ -34,7 +34,7 @@ lang: ja
       </div>
 
       <div class="product-card">
-        <h3>LLM推論アクセラレータ</h3>
+        <h3>LLM推論<br class="sp-br">アクセラレータ</h3>
         <p>フルスパースな量子化Diffusion Transformerの高速推論に特化した次世代アクセラレータ。</p>
         <ul>
           <li>革新的な量子化技術による効率化</li>
